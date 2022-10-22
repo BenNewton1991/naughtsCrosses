@@ -55,6 +55,60 @@ const Player = function(nam = default_name, identity) {
     play = (square) => {
         playerSquares.push(square);
         console.log(playerSquares)
+
+        /* Brute force method of checking for victory */
+
+
+        const column1 = [0, 1, 2];
+        const checkColum1 = column1.every(cell => {
+            return playerSquares.includes(cell)
+        })
+        const column2 = [3, 4, 5];
+        const checkColumn2 = column2.every(cell => {
+            return playerSquares.includes(cell)
+        })
+        const column3 = [6, 7, 8];
+        const checkColumn3 = column3.every(cell => {
+            return playerSquares.includes(cell)
+        })
+        const row1 = [0, 3, 6];
+        const checkRow1 = row1.every(cell => {
+            return playerSquares.includes(cell)
+        })
+        const row2 = [1, 4, 7];
+        const checkRow2 = row2.every(cell => {
+            return playerSquares.includes(cell)
+        })
+        const row3 = [2, 5, 8];
+        const checkRow3 = row3.every(cell => {
+            return playerSquares.includes(cell)
+        })
+        const diag1 = [0, 4, 8];
+        const checkDiag1 = diag1.every(cell => {
+            return playerSquares.includes(cell)
+        })
+        const diag2 = [2, 4, 6];
+        const checkDiag2 = diag2.every(cell => {
+            return playerSquares.includes(cell)
+        })
+
+        if (checkColum1 || checkColumn2 || checkColumn3 || checkRow1 || checkRow2 || checkRow3 || checkDiag1 || checkDiag2) {
+            console.log(name + 'You win!')
+        }
+        
+
+
+
+
+    }
+
+       
+
+    
+
+    reset = () => {
+        playerSquares = [];
+        console.log('new game')
     }
 
     return {play}
@@ -67,7 +121,7 @@ const Player = function(nam = default_name, identity) {
 const Grid = (gridContainer) => {
 
     const player1 = Player('player 1', identify);
-    const player2 = Player('player 1', identify);
+    const player2 = Player('player 2', identify);
 
     for (let i = 0; i < 9; i++) {
         id = i;
