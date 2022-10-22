@@ -1,0 +1,121 @@
+* {
+    margin: 0px;
+    padding:0px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.body {
+    width:100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 100px 1fr 100px;
+}
+
+/* Header (And some footer...)*/
+
+.header, .footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    background-color: #EEEEEE;
+}
+
+.header {
+    grid-row: 1/2;
+}
+
+.title {
+    font-size: 2em;
+    font-weight: 400;
+}
+
+.logo-cross {
+    width:100px;
+    height:100px;
+}
+
+.logo-naught {
+    width: 100px;
+    height: 100px;
+}
+
+/* Main */
+
+.main {
+    grid-row: 2/3;
+    width: 100vw;
+    max-width: 800px;
+    justify-self: center;
+    border: 1px solid black;
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+}
+
+.left, .right, .content {
+    height:100%;
+    border: 1px solid black;
+}
+
+.left, .right {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 30px;
+    gap:8px;
+}
+
+.content {
+    display: grid;
+    grid-template-rows: 1fr 4fr 1fr;
+}
+
+.new-game-button-container {
+    display: flex;
+    height: 100%;
+    padding-left: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.new-game-button {
+    width:100px;
+    border-radius: 5px;
+    padding:5px;
+}
+
+.boxes {
+    border: 1px solid black;
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    grid-auto-columns: 100px 100px 100px;
+    grid-auto-flow: column;
+    grid-template-rows: 100px 100px 100px;
+    gap:5px;
+}
+
+.boxes div {
+    width: 100px;
+    border: 1px solid black;
+    height: 100px;
+}
+
+.turn {
+    display: flex;
+    padding-left: 5px;
+    padding-top: 5px;
+    justify-content: center;
+    align-items: center;
+
+}
+
+
+
+/* Footer */
+
+.footer {
+    grid-row: 3/4;
+}
