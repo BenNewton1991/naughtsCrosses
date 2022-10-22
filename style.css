@@ -97,7 +97,7 @@
     gap:5px;
 }
 
-.boxes div {
+.grid-square {
     width: 100px;
     border: 1px solid black;
     height: 100px;
