@@ -181,7 +181,6 @@ const Grid = (gridContainer) => {
         player1.reset()
         player2.reset()
 
-        updateText(1)
 
 
         setTimeout(function(){

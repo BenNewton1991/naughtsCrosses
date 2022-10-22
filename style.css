@@ -103,7 +103,7 @@
     height: 100px;
 }
 
-.turn {
+#turn {
     display: flex;
     padding-left: 5px;
     padding-top: 5px;
