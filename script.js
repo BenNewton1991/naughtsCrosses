@@ -8,12 +8,10 @@ let default_name = 'player';
 const Square = function (num, player1, player2) {
     let clicked = false;
     const id = num;
-    console.log(player1)
 
     const play = () => {
         if (playerTurn == 0  && clicked == false) {
             square.appendChild(cross)
-            console.log(id)
             player1.play(id);
 
             playerTurn = 1;
@@ -52,14 +50,11 @@ const Player = function(nam = default_name, identity) {
     const id = identity;
     identify += 1;
     let score = 0;
-
     let playerSquares = [];
-    console.log(playerSquares)
 
     
 
     play = (square) => {
-        console.log(id)
         if (playerTurn == 1) {
 
             grid.updateText(0)
@@ -67,14 +62,7 @@ const Player = function(nam = default_name, identity) {
             grid.updateText(1)
         }
 
-
-
-        
-
-        playerSquares.push(square);
-
-
-        
+        playerSquares.push(square);      
 
         /* Brute force method of checking for victory */
 
@@ -124,33 +112,22 @@ const Player = function(nam = default_name, identity) {
         }
 
         if (checkColum1 || checkColumn2 || checkColumn3 || checkRow1 || checkRow2 || checkRow3 || checkDiag1 || checkDiag2) {
-            console.log(name + 'You win!')
             score += 1;
             playerTurn = 0;
             updateScore()
-
-
 
             grid.resetGridPlayerSquares();
                     
         }
 
-        console.log(grid.checkGridFull())
-
-
-        if (grid.checkGridFull() == true) {
-
-            
-            grid.resetGridPlayerSquares();
-
-            
-        }
+        grid.checkGridFull()
+              
     
     }
     
     reset = () => {
+        
         playerSquares = [];
-        console.log('new game', playerSquares)
     }
 
     return {play, reset, name, playerSquares}
@@ -169,7 +146,6 @@ const Grid = (gridContainer) => {
         id = i;
         const square = new Square(id, player1, player2);
         gridContainer.appendChild(square)
-        console.log('added square')
     }
 
 
@@ -178,40 +154,40 @@ const Grid = (gridContainer) => {
             changePlayerText.innerHTML = ''
         if (id == 0) {   
             changePlayerText.textContent =  player1.name + 's turn';
-            console.log('worked 1' + player1.name)
         } else {
             changePlayerText.textContent =  player2.name + 's turn';
-            console.log('worked type 2' + player2.name)
 
         }
     }
 
-    function checkGridFull () {
+    checkGridFull = () => {
         const full = [0,1,2,3,4,5,6,7,8]
 
 
-        console.log('check start')
+       
 
         const player1S = player1.playerSquares;
         const player2S = player2.playerSquares;
 
-        const bothPlayerS = player1S.concat(player2S)
+      
 
+        const bothPlayerS = player1S.concat(player1S, player2S)
+
+        console.log(bothPlayerS)
 
         const check = full.every(cell => {
             return bothPlayerS.includes(cell)
         })
+
+    
         
-        if (check == true) {
-            return true
-        } else {
-            return false;
-        }
+        if (check == true ) {
+            
+         
+            resetGridPlayerSquares()
+        } 
 
-
-
-        
-
+    
 
     }
 
@@ -233,7 +209,6 @@ const Grid = (gridContainer) => {
                 id = i;
                 const square = new Square(id, player1, player2);
                 gridContainer.appendChild(square)
-                console.log('added square')
             }
 
         }, 500); 
@@ -261,5 +236,4 @@ btn.addEventListener('click', grid.resetGridPlayerSquares)
 
 
 
-grid.checkGridFull();
 
