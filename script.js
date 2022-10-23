@@ -20,7 +20,8 @@ const Square = function (num, player1, player2) {
 
 
             clicked = true;
-        } else {
+        } else if (playerTurn == 1  && clicked == false)
+        {
             square.appendChild(naught)
             player2.play(id)
 
@@ -65,6 +66,8 @@ const Player = function(nam = default_name, identity) {
         } else {
             grid.updateText(1)
         }
+
+
 
         
 
@@ -131,6 +134,17 @@ const Player = function(nam = default_name, identity) {
             grid.resetGridPlayerSquares();
                     
         }
+
+        console.log(grid.checkGridFull())
+
+
+        if (grid.checkGridFull() == true) {
+
+            
+            grid.resetGridPlayerSquares();
+
+            
+        }
     
     }
     
@@ -139,7 +153,7 @@ const Player = function(nam = default_name, identity) {
         console.log('new game', playerSquares)
     }
 
-    return {play, reset, name}
+    return {play, reset, name, playerSquares}
 }
 
 
@@ -172,6 +186,35 @@ const Grid = (gridContainer) => {
         }
     }
 
+    function checkGridFull () {
+        const full = [0,1,2,3,4,5,6,7,8]
+
+
+        console.log('check start')
+
+        const player1S = player1.playerSquares;
+        const player2S = player2.playerSquares;
+
+        const bothPlayerS = player1S.concat(player2S)
+
+
+        const check = full.every(cell => {
+            return bothPlayerS.includes(cell)
+        })
+        
+        if (check == true) {
+            return true
+        } else {
+            return false;
+        }
+
+
+
+        
+
+
+    }
+
 
     updateText(0)
 
@@ -199,13 +242,12 @@ const Grid = (gridContainer) => {
 
     }
 
-    return {resetGridPlayerSquares, updateText}
+    return {resetGridPlayerSquares, updateText, checkGridFull}
 
 
 
 
 }
-
 
 
 
@@ -219,4 +261,5 @@ btn.addEventListener('click', grid.resetGridPlayerSquares)
 
 
 
+grid.checkGridFull();
 
