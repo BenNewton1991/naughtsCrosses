@@ -56,47 +56,52 @@ const Player = function(nam = default_name, identity) {
 
     play = (square) => {
         if (playerTurn == 1) {
+            playerSquares.push(square);      
 
             grid.updateText(0)
+            grid.checkGridFull()    
+
         } else {
             grid.updateText(1)
+            playerSquares.push(square);  
+            grid.checkGridFull()    
+
         }
 
-        playerSquares.push(square);      
 
         /* Brute force method of checking for victory */
 
 
-        const column1 = [0, 1, 2];
-        const checkColum1 = column1.every(cell => {
+        let column1 = [0, 1, 2];
+        let checkColum1 = column1.every(cell => {
             return playerSquares.includes(cell)
         })
-        const column2 = [3, 4, 5];
-        const checkColumn2 = column2.every(cell => {
+        let column2 = [3, 4, 5];
+        let checkColumn2 = column2.every(cell => {
             return playerSquares.includes(cell)
         })
         const column3 = [6, 7, 8];
-        const checkColumn3 = column3.every(cell => {
+        let checkColumn3 = column3.every(cell => {
             return playerSquares.includes(cell)
         })
         const row1 = [0, 3, 6];
-        const checkRow1 = row1.every(cell => {
+        let checkRow1 = row1.every(cell => {
             return playerSquares.includes(cell)
         })
         const row2 = [1, 4, 7];
-        const checkRow2 = row2.every(cell => {
+        let checkRow2 = row2.every(cell => {
             return playerSquares.includes(cell)
         })
         const row3 = [2, 5, 8];
-        const checkRow3 = row3.every(cell => {
+        let checkRow3 = row3.every(cell => {
             return playerSquares.includes(cell)
         })
         const diag1 = [0, 4, 8];
-        const checkDiag1 = diag1.every(cell => {
+        let checkDiag1 = diag1.every(cell => {
             return playerSquares.includes(cell)
         })
         const diag2 = [2, 4, 6];
-        const checkDiag2 = diag2.every(cell => {
+        let checkDiag2 = diag2.every(cell => {
             return playerSquares.includes(cell)
         })
 
@@ -112,10 +117,14 @@ const Player = function(nam = default_name, identity) {
         }
 
         if (checkColum1 || checkColumn2 || checkColumn3 || checkRow1 || checkRow2 || checkRow3 || checkDiag1 || checkDiag2) {
+                    
             score += 1;
             playerTurn = 0;
             updateScore()
 
+            player1.playerSquares = []
+            player2.playerSquares = []
+          
             grid.resetGridPlayerSquares();
                     
         }
@@ -133,18 +142,19 @@ const Player = function(nam = default_name, identity) {
     return {play, reset, name, playerSquares}
 }
 
+let player1 = Player('Player 1', identify);
+let player2 = Player('Player 2', identify);
 
 
 
 
 const Grid = (gridContainer) => {
 
-    const player1 = Player('Player 1', identify);
-    const player2 = Player('Player 2', identify);
+    
+    
 
     for (let i = 0; i < 9; i++) {
-        id = i;
-        const square = new Square(id, player1, player2);
+        const square = new Square(i, player1, player2);
         gridContainer.appendChild(square)
     }
 
@@ -161,30 +171,50 @@ const Grid = (gridContainer) => {
     }
 
     checkGridFull = () => {
-        const full = [0,1,2,3,4,5,6,7,8]
+        let full = [0,1,2,3,4,5,6,7,8]
 
 
        
 
-        const player1S = player1.playerSquares;
-        const player2S = player2.playerSquares;
+        let p1 = player1.playerSquares;
+        let p2 = player2.playerSquares;
 
       
 
-        const bothPlayerS = player1S.concat(player1S, player2S)
+        let bothPlayerS = p1.concat(p2)
 
         console.log(bothPlayerS)
 
-        const check = full.every(cell => {
+
+        let check = full.every(cell => {
             return bothPlayerS.includes(cell)
         })
 
     
         
         if (check == true ) {
+
+
+            location.reload()
+
+            /*
+            player1.playerSquares = []
+            player2.playerSquares = []
+
+            gridContainer.innerHTML = ''
+
+
+            for (let i = 0; i < 9; i++) {
+
+                let id = i;
+                const square = new Square(id, player1, player2);
+                gridContainer.appendChild(square)
+            }
+            */
+
             
-         
-            resetGridPlayerSquares()
+
+            
         } 
 
     
@@ -228,7 +258,7 @@ const Grid = (gridContainer) => {
 
 
 
-const grid = Grid(gridContainer);
+let grid = Grid(gridContainer);
 
 
 const btn = document.getElementById('btn-1')
